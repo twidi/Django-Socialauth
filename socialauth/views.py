@@ -235,8 +235,8 @@ def facebook_login_done(request):
         user = None
 
     if not user:
-        del request.COOKIES[API_KEY + '_session_key']
-        del request.COOKIES[API_KEY + '_user']
+        request.COOKIES.pop(API_KEY + '_session_key', None)
+        request.COOKIES.pop(API_KEY + '_user', None)
         # TODO: maybe the project has its own login page?
         logging.debug("SOCIALAUTH: Couldn't authenticate user with Django, redirecting to Login page")
         return HttpResponseRedirect(reverse('socialauth_login_page'))
